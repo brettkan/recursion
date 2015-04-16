@@ -12,7 +12,7 @@ var stringifyJSON = function(obj) {
 	}
 
 	// Adds string to result if obj is a number or boolean
-	if (typeof obj === "number" || typeof obj === "boolean") {
+	else if (typeof obj === "number" || typeof obj === "boolean") {
 		result += obj.toString();
 	}
 
@@ -22,7 +22,7 @@ var stringifyJSON = function(obj) {
 
         _.each(obj, function(element) {
         	result += stringifyJSON(element) + ",";
-        })
+        });
 
         if (result.charAt(result.length - 1) === ",") {
         	result = result.substring(0, result.length - 1);
@@ -30,6 +30,17 @@ var stringifyJSON = function(obj) {
         result += "]";
     }
 
+    // If obj is an object (non-array), run stringifyJSON on all
+    // key pairs in object
+    else if (typeof obj === "object") {
+    	result += "{";
+
+    	_.each(obj, function(value, key) {
+    		result += stringifyJSON(key) + ":" + stringifyJSON(value) + ",";
+    	});
+
+    	result += "}";
+    }
 
 	return result;
 };
