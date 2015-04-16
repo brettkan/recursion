@@ -14,8 +14,13 @@ var stringifyJSON = function(obj) {
         return str;
 	};
 
+	// Adds "null" to result if obj is null
+	if (obj === null) {
+		result += "null";
+	}
+
 	// Adds string to result if obj is a string
-	if (typeof obj === "string") {
+	else if (typeof obj === "string") {
 		result += "\"" + obj + "\"";
 	}
 
@@ -42,11 +47,18 @@ var stringifyJSON = function(obj) {
     	result += "{";
 
     	_.each(obj, function(value, key) {
+    		if (typeof value === "function" || value === undefined) {
+    			return;
+    		}
     		result += stringifyJSON(key) + ":" + stringifyJSON(value) + ",";
     	});
 
     	result = removeTrailingComma(result);
     	result += "}";
+    }
+
+    else {
+    	return undefined;
     }
 
 	return result;
