@@ -6,6 +6,14 @@
 var stringifyJSON = function(obj) {
 	var result = "";
 
+	// Function that removes last character if it is a comma
+	var removeTrailingComma = function(str) {
+		if (str.charAt(str.length - 1) === ",") {
+        	str = str.substring(0, str.length - 1);
+        }
+        return str;
+	};
+
 	// Adds string to result if obj is a string
 	if (typeof obj === "string") {
 		result += "\"" + obj + "\"";
@@ -24,9 +32,7 @@ var stringifyJSON = function(obj) {
         	result += stringifyJSON(element) + ",";
         });
 
-        if (result.charAt(result.length - 1) === ",") {
-        	result = result.substring(0, result.length - 1);
-        }
+        result = removeTrailingComma(result);
         result += "]";
     }
 
@@ -39,6 +45,7 @@ var stringifyJSON = function(obj) {
     		result += stringifyJSON(key) + ":" + stringifyJSON(value) + ",";
     	});
 
+    	result = removeTrailingComma(result);
     	result += "}";
     }
 
