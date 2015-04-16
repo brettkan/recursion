@@ -57,9 +57,5 @@ var stringifyJSON = function(obj) {
     	result += "}";
     }
 
-    else {
-    	return undefined;
-    }
-
 	return result;
 };
