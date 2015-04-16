@@ -12,10 +12,19 @@ var stringifyJSON = function(obj) {
 		typeof obj === "boolean") {
 		result += obj.toString();
 	}
-
+	
 	// If obj is an array
     else if (Array.isArray(obj)) {
+    	result += "[";
 
+        _.each(obj, function(element) {
+        	result += stringifyJSON(element) + ",";
+        })
+
+        if (result.charAt(result.length - 1) === ",") {
+        	result = result.substring(0, result.length - 1);
+        }
+        result += "]";
     }
 
 
