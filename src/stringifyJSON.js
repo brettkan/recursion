@@ -6,14 +6,17 @@
 var stringifyJSON = function(obj) {
 	var result = "";
 
-	// Adds string to result if obj is a number, string, or boolean
-	if (typeof obj === "number" || 
-		typeof obj === "string" ||
-		typeof obj === "boolean") {
+	// Adds string to result if obj is a string
+	if (typeof obj === "string") {
+		result += "\"" + obj + "\"";
+	}
+
+	// Adds string to result if obj is a number or boolean
+	if (typeof obj === "number" || typeof obj === "boolean") {
 		result += obj.toString();
 	}
-	
-	// If obj is an array
+
+	// If obj is an array, run stringifyJSON on all elements in array
     else if (Array.isArray(obj)) {
     	result += "[";
 
