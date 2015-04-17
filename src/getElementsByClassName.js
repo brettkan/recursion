@@ -11,7 +11,7 @@ var getElementsByClassName = function(className
     var searchChildren = function(element) {
 
         if (element.hasClass(className)) {
-            result.push(element);
+            result.push(element.toArray().pop());
         }
 
         if (element.children().length !== 0) {
