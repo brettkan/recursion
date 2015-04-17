@@ -6,5 +6,23 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className
 ){
-  // your code here
+	var result = [];
+
+    var searchChildren = function(element) {
+
+        if (element.hasClass(className)) {
+            result.push(element);
+        }
+
+        if (element.children().length !== 0) {
+            searchChildren(element.children().first());
+        }
+
+        if (element.next().length !== 0) {
+            searchChildren(element.next());
+        }
+    };
+
+    searchChildren($("html"))
+    return result;
 };
